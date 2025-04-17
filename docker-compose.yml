@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "4001:4001"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/authdb
+      - JWT_SECRET=cV0sjtSPHFdgUMYuHU2K6TchPr4bAQYVNLqzknLSWsk=
+      - PORT=4001 
+
+  expense-service:
+    build: ./expense-service
+    container_name: expense-service
+    ports:
+      - "4002:4002"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/expense-db
+      - PORT=4002
+
+
+  settlement-service:
+    build: ./settlement-service   
+    container_name: settlement-service
+    ports:
+      - "4003:4003"   
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/settlementServiceDB
+      - PORT=4003
+     

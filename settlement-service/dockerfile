@@ -1,0 +1,23 @@
+# Use Node base image
+FROM node:18
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies including nodemon
+RUN npm install
+
+# Install nodemon globally
+RUN npm install -g nodemon
+
+# Copy rest of the code
+COPY . .
+
+# Expose port
+EXPOSE 4003
+
+# Start the service
+CMD ["npm", "run", "dev"]
