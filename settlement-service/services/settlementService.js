@@ -57,26 +57,22 @@ const getAllSettlements = async () => {
 // services/settlementService.js
 
 const getUserSettlements = async (userId, status) => {
-  try {
-    // Build the filter object
-    const filter = {
-      $or: [
-        { userId },
-        { 'owesTo.userId': userId }
-      ]
-    };
+  const filter = {
+    $or: [
+      { userId: userId },
+      { owesTo: { $elemMatch: { userId: userId } } },
+    ],
+  };
 
-    // If status filter is provided, add it to the filter
-    if (status) {
-      filter.status = status; // Filter based on the status (pending or settled)
-    }
-
-    const settlements = await Settlement.find(filter);
-    return settlements;
-  } catch (error) {
-    throw new Error('Error fetching settlements');
+  if (status) {
+    filter.status = status;
   }
+
+  console.log("🔍 Final query filter:", filter);
+
+  return await Settlement.find(filter);
 };
+
 
 
 // Function to update the status of a settlement (pending/settled)

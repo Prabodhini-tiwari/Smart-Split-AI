@@ -3,7 +3,7 @@ import settlementService from '../services/settlementService.js';
 
 // Controller to create a settlement
 const createSettlement = async (req, res) => {
-    const { expenses } = req.body;
+    const  {expenses}  = req.body;
   
     console.log("Received expenses in controller:", expenses); // Debug log
   
@@ -43,8 +43,11 @@ const getUserSettlements = async (req, res) => {
 
 // Controller to update the settlement status
 const updateSettlementStatus = async (req, res) => {
+  console.log('💬 Body received:', req.body);
   const { id } = req.params;
   const { status } = req.body;
+
+   
 
   try {
     const settlement = await settlementService.updateSettlementStatus(id, status);

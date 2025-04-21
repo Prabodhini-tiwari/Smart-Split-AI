@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 connectDB();
-app.use('/api/expenses', expenseRoutes);
+app.use('/', expenseRoutes);
 
 app.listen(PORT, () => {
     console.log(`Expense service running on port ${PORT}`);

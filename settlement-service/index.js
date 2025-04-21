@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 4003;
 app.use(express.json());
 
 // Routes
-app.use('/api/settlements', settlementRoutes);
+app.use('/', settlementRoutes);
 
 app.listen(PORT, () => {
   console.log(`Settlement-service running on port ${PORT}`);

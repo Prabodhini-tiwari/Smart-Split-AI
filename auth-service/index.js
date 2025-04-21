@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 connectDB();
-app.use('/api/auth', authRoutes);
+app.use('/', authRoutes);
 
 const PORT = process.env.PORT || 4001;
 app.listen(PORT, () => {
